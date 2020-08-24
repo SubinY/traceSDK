@@ -1,6 +1,6 @@
 {
   "name": "trace-id-sdk",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "前端项目统一使用与后端约定的trace-id方便疑难错误排查",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giscafer/alidayujs.git"
+    "url": "git+https://github.com/subinY/traceSDK.git"
   },
   "keywords": [],
   "author": "subin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/giscafer/alidayujs/issues"
+    "url": "https://github.com/subinY/traceSDK/issues"
   },
-  "homepage": "https://github.com/giscafer/alidayujs#readme",
+  "homepage": "https://github.com/subinY/traceSDK#readme",
   "dependencies": {
     "vant": "^2.8.5",
     "element-ui": "^2.13.2"
