@@ -1,7 +1,7 @@
 {
-  "name": "alidayujs",
-  "version": "1.0.5",
-  "description": "JavaScript Alidayu（阿里大鱼） SDK 兼容服务器端环境node.js，模块加载器如RequireJS和所有浏览器",
+  "name": "traceSDK",
+  "version": "1.0.0",
+  "description": "前端项目统一使用与后端约定的trace-id方便疑难错误排查",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,20 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/giscafer/alidayujs.git"
   },
-  "keywords": [
-    "alidayu",
-    "Alidayu SDK",
-    "sms",
-    "阿里大鱼"
-  ],
-  "author": "Nickbing Lao <giscafer@outlook.com>",
+  "keywords": [],
+  "author": "subin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/giscafer/alidayujs/issues"
   },
   "homepage": "https://github.com/giscafer/alidayujs#readme",
   "dependencies": {
-    "blueimp-md5": "^2.1.0",
-    "request": "^2.67.0"
+    "vant": "^2.8.5",
+    "element-ui": "^2.13.2"
   }
 }

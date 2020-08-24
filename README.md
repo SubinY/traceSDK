@@ -1,102 +1,58 @@
-# alidayujs
+# traceSDK
 
-[![NPM version](https://img.shields.io/npm/v/alidayujs.svg?style=flat-square)](https://www.npmjs.com/package/alidayujs)
-[![NPM download](https://img.shields.io/npm/dt/alidayujs.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/alidayujs)
-[![NPM license](https://img.shields.io/npm/l/alidayujs.svg?style=flat-square)](https://www.npmjs.com/package/alidayujs)
+前端项目统一使用与后端约定的 trace-id 方便疑难错误排查
 
-JavaScript Alidayu SDK 兼容服务器端环境node.js，模块加载器如RequireJS和所有浏览器
- 
- 
-## Demo
- 
- [alidayujs-demo](https://github.com/giscafer/alidayujs-demo)
- 
 ## Usage
- 
+
 ### Client-side
- 
- Web浏览器JavaScript直接调用alidayujs SDK需要两个的依赖文件：jQuery.js和md5.js，其中md5.js网上版本很多，这里使用[JavaScript-MD5](https://github.com/blueimp/JavaScript-MD5)
- 
- **1、HTML脚本标签引入文件如**
- 
-    <script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
-    <script src="http://cdn.bootcss.com/blueimp-md5/2.1.0/js/md5.js"></script>
-    <script src="lib/alidayu.js"></script>
-    
-**2、示例脚本代码**
+
+针对业务 VueUI,后台系统使用 ElementUI,H5 使用 vant。会引用[element-ui](https://element.eleme.cn)和[vant](https://youzan.github.io/vant/)
+
+**1、示例脚本代码**
 
 ```javascript
-    //应用密匙 见：http://www.alidayu.com/help?spm=a3142.7802526.1.24.iEB4Yc&_t=1#create
-    var config = {
-        app_key: '23300111',
-        secret: '3403636b338e1003999dd946111111' 
-    };
-    //创建实例
-    var dayu = new AliDaYu(config);
-    //参数 见：http://open.taobao.com/doc2/apiDetail.htm?apiId=25450
-    var params = {
-        sms_free_sign_name: '身份验证',
-        sms_param: {
-            code: '52031',
-            product: 'alidayujs ajax post test',
-        },
-        rec_num: '15110111111',
-        sms_template_code: 'SMS_4725038',
-    };
-    //短信发送
-    dayu.sms(params,function(err,result){
-        if(err){
-            return console.log(err);
-        }
-        console.log(result);
-    });
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+...
+const request = axios.create();
+var traceSDK = new TraceSDK();
+traceSDK.axiosInit(request, {
+  'Content-Type': 'application/json'
+});
+// 添加一个请求拦截器
+request.interceptors.request.use(
+  function (config) {
+    Object.assign(config.headers, traceSDK.getTraceIdHeader());
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
+// 添加一个响应拦截器
+request.interceptors.response.use(
+  function (response) {
+    var traceId = res.config.headers['X-TRACE-ID'];
+    Element.Message.error(traceId || '服务异常');
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    // Do something with response error
+    return Promise.reject(error);
+  }
+);
+
+function test() {
+  var url = 'https://api.apiopen.top/getSingleJoke?sid=28654780';
+  // console.log(request, 'request');
+  request.get(url);
+}
 ```
- 
-### Server-side
 
-    以下介绍如何在 Node.js环境下使用alidayujs
-    
-**1、安装**
-    
-        npm install alidayujs --save
-        
- 
- 说明：内部需要两个模块`require`,`blueimp-md5`
-    
-**2、使用方法**
- 
-```javascript
+### Todo
 
-    var Alidayu=require('./lib/alidayu');
-    //应用密匙 见：http://www.alidayu.com/help?spm=a3142.7802526.1.24.iEB4Yc&_t=1#create
-    var config = {
-        app_key: '23300111',
-        secret: '3403636b338e1003999dd946111111' 
-    };
-    var alidayu = new Alidayu(config);
-    //参数 见：http://open.taobao.com/doc2/apiDetail.htm?apiId=25450
-    var options = {
-        sms_free_sign_name: '身份验证',
-        sms_param: {
-        code: '1234',
-        product: 'alidayujs测试',
-        },
-        rec_num: '15110111111', 
-        sms_template_code: 'SMS_4725038',
-    };
-    //发送短信
-    alidayu.sms(options,function(err,result){
-        if(err){
-            console.log('ERROR'+err);
-        }
-        console.log(result);
-    });
-
-
-```
- 
- 
-## License
- 
-MIT ©[giscafer](https://github.com/giscafer)
+- [x] axios
+- [ ] XMLHttpRequest
+- [ ] fetch 封装

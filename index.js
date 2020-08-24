@@ -1,1 +1,1 @@
-module.exports = require('./lib/alidayu');
+module.exports = require('./lib/traceSDK');
