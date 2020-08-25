@@ -1,6 +1,6 @@
 {
   "name": "trace-id-sdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "前端项目统一使用与后端约定的trace-id方便疑难错误排查",
   "main": "index.js",
   "scripts": {
