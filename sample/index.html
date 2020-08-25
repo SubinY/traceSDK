@@ -24,7 +24,8 @@
   const request = axios.create();
   var traceSDK = new TraceSDK();
   traceSDK.axiosInit(request, {
-    'Content-Type': 'application/json'
+    header: { 'Content-Type': 'application/json' },
+    msgBox: Element.error
   });
   // 添加一个请求拦截器
   request.interceptors.request.use(
@@ -53,8 +54,7 @@
   );
 
   function test() {
-    var url =
-      'https://api.apiopen.top/getSingleJoke?sid=28654780';
+    var url = 'https://api.apiopen.top/getSingleJoke?sid=28654780';
     // console.log(request, 'request');
     request.get(url);
   }
